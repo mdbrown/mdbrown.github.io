@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Hadley Wickham &hearts; Open Source</title>
+    <title>Marshall Brown &hearts; Open Source</title>
     <link rel="stylesheet" type="text/css" href="assets/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/grid.css">
     <link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -60,7 +60,7 @@
         $item.appendTo("#repos");
       }
 
-      $.getJSON("https://api.github.com/users/hadley/repos?per_page=100&callback=?", function (result) {
+      $.getJSON("https://api.github.com/users/mdbrown/repos?per_page=100&callback=?", function (result) {
         var repos = result.data;
 
         $(function () {
@@ -122,14 +122,14 @@
         <div id="statistics" class="grid-1 alpha header">
           <h1>Statistics</h1>
           <p>
-            <a href="https://github.com/hadley/repositories"><span id="num-repos">&nbsp;</span> public repos</a>
+            <a href="https://github.com/mdbrown/repositories"><span id="num-repos">&nbsp;</span> public repos</a>
             <br>
           </p>
-          <p class="email"><a href="mailto:hadley@rice.edu">hadley@rice.edu</a></p>
+          <p class="email"><a href="mailto:mdbrown@fhcrc.org">hadley@rice.edu</a></p>
         </div>
 
         <div id="recently-updated" class="grid-2 omega header">
-          <h1>Recently updated <a href="https://github.com/hadley/repositories">View All on GitHub</a></h1>
+          <h1>Recently updated <a href="https://github.com/mdbrown/repositories">View All on GitHub</a></h1>
           <ol id="recently-updated-repos"></ol>
         </div>
       </div>
