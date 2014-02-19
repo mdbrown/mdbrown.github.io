@@ -53,10 +53,10 @@
         $link.append($("<h2>").text(repo.name));
         $link.append($("<h3>").text(repo.watchers + " watchers" + " / " + repo.forks + " forks"));
         $link.append($("<p>").text(repoDescription(repo)));
-        $link.append($("<p>").text("Updated " + 
+        $link.append($("<p>").text("Updated " +
           strftime("%h %e, %Y", repo.pushed_at)));
         $link.append($("<h3>").addClass("language").text(repo.language));
-        
+
         $item.appendTo("#repos");
       }
 
@@ -115,7 +115,7 @@
         <div><h1>Marshall Brown's github repos</h1></div>
         <p>This is an index to my open source repos on github</p>
         <p>Page based on <a href="http://twitter.github.com/">http://twitter.github.com/</a></p>
-		<p><a href="adaproj_simstudy2014_notes.html">link to personal notes</a></p>
+		<p><a href="notes.html">link to notes</a></p>
 
       </div>
 
