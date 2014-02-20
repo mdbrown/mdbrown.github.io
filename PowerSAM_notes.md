@@ -89,7 +89,7 @@ Estimates for all measures can be calculated via non-parametric or semi-parametr
 
 ### Shiny
   - [simple example](http://spark.rstudio.com/uafsnap/RV_distributions/)
-  - [Power App](glimmer.rstudio.com/mdbrown/PowerSAM/)
+  - [Power App](http://glimmer.rstudio.com/mdbrown/PowerSAM/)
   - [other](http://mdbrown.shinyapps.io/twitclouds/)
   
 ## Results
