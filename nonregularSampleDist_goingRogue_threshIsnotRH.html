@@ -57,7 +57,7 @@
 <h3>Simulation model</h3>
 <p>Data is simulated from a linear logistic model with single marker <span class="math">\(Y\)</span>. We expect there to be problems for <span class="math">\(HR_D(r_H)\)</span> when <span class="math">\(P(Risk(X_D) = r_H) \neq 0\)</span> (and similarly for <span class="math">\(HR_\bar D (r_H)\)</span>). This motivates the idea to generate <span class="math">\(Y\)</span> from a mixture distribution, where</p>
 <p><span class="math">\(Y  \sim N(0 , 1)\)</span> with probability (1- <span class="math">\(\lambda\)</span> ) and</p>
-<p><span class="math">\(Y  \sim N(y_{risk^*} , 1/2)\)</span> with probability <span class="math">\(\lambda\)</span></p>
+<p><span class="math">\(Y   = y_{risk^*}\)</span> with probability <span class="math">\(\lambda\)</span></p>
 <p>where the value <span class="math">\(y_{risk^*}\)</span> is the value of <span class="math">\(Y\)</span> such that <span class="math">\(Risk(Y) = risk^*\)</span>. We vary <span class="math">\(\lambda\)</span> from 0 to 0.25.</p>
 <ul>
 <li><span class="math">\(risk^* = r_H = .14\)</span></li>
