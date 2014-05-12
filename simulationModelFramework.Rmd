@@ -1,0 +1,121 @@
+---
+title: "simulation model framework"
+author: "marshall brown"
+date: "05/01/2014"
+output:
+  pdf_document: default
+  html_document:
+    theme: united
+---
+
+Things we can fix throughout all models: 
+
+1. disease prevalence  = 15% 
+2. high risk threshold = 19% 
+
+---------------------------------------------------------------------------
+
+We have several choices to make: 
+
+#### marker strength:
+
+ - **weak:**  *model coefficients set such that AUC = .55 for an unbounded, continuous marker.* 
+ - **strong:** *model coefficients set such that AUC = .55 for an unbounded, continuous marker.*
+
+    *Note: The true value of the AUC may change slightly for discrete or bounded versions of the marker*
+
+#### marker measurement: 
+
+  - **continuous**
+  - **discretized:** *rounded to nearest tenth*
+  - **bounded:** *top 10% marker values truncated*
+    
+    
+#### dimension 
+
+  - **univariate**
+  - **bivariate**
+  - **multivariate:** $p = 4$
+
+
+#### contraints on risk distribution:
+  - **none:** *risk distribution is induced from marker measurement*
+  - **discrete:** *marker measurement remains continuous, but risk for each individual is contrained to be one of four discrete values. This is achieved through use of a bivariate marker, where $x_1$ is standard normal and $x_2$ is a function of $x_1$. Mathematically:*
+$$
+   \begin{aligned}
+    r^* & \in \{r_1, r_2, r_3, ...\} \\
+    x_1 & \sim N(0, 1) \\
+    x_2 & = (logit(r^*) - \beta_0 - \beta_1 x )/ \beta_2 \\
+    \end{aligned}
+$$    
+  - **discrete + noise:** *identical to the discrete case, but instead of $x_2$ being determined by $x_1$ such that risk is one of four discrete values, $x_2$ is generated from a normal distribution centered at the value such that risk is discrete. Mathematically:*
+ $$
+   \begin{aligned}
+    r^* & \in \{r_1, r_2, r_3, ...\} \\
+    x_1 & \sim N(0, 1) \\
+    x_2 & \sim N((logit(r^*) - \beta_0 - \beta_1 x )/ \beta_2, sd = risk.tune) \\
+    \end{aligned}
+$$
+    
+    
+#### control proportion of observations with risk near 'boundary': 
+
+this proportion will be controlled by simulating marker values from a  mixture of normals. One of which will be centered at the high risk threshold. 
+
+  - **yes:** *mixture of normals* 
+  - **no:** *not adjusted by mixture distribution*
+   
+
+---------------------------------------------------------------------------
+
+
+\newpage
+###Scenarios we should consider
+
+|          |  **strength** |  **measurement** |  **dimension**    | **contstraints on risk dist.**   | **control prop. obs near risk threshold** |
+|----------|--------------:|-----------------:|------------------:|-----------------:|--------------------------:|
+|  1.a [(link)](http://mdbrown.github.io/1A-WeakContinuousUnivariateMarker.html)                |  weak         |  continuous   |  univariate       |  none    | no                     |
+|  1.b [(link)](http://mdbrown.github.io/1B-StrongContinuousUnivariateMarker.html)              |  strong       |  continuous   |  univariate       |  none    | no                     |
+|  2.a. [(link)](http://mdbrown.github.io/2A-WeakContinuousMultivariateMarker.html)               |  weak         |  continuous   |  multivariate     |  none   | no                     |
+|  2.b. [(link)](http://mdbrown.github.io/2B-StrongContinuousMultivariateMarker.html)               |  strong         |  continuous   |  multivariate     |  none   | no                     |
+|  3.a [(link)](http://mdbrown.github.io/3A-WeakDiscretizedUnivariateMarker.html)             |  weak       |  discrete     |  univariate       |  none   | no                     |
+|  3.b [(link)](http://mdbrown.github.io/3B-StrongDiscretizedUnivariateMarker.html)               |  strong         |  discrete     |  univariate       |  (discretized)   | no                     |
+|  4.a [(link)](http://mdbrown.github.io/4A-WeakBoundedUnivariateMarker.html)                 |  weak       |  bounded      |  univariate       |  (bounded)       | no                     |
+|  4.b [(link)](http://mdbrown.github.io/4B-StrongBoundedUnivariateMarker.html)                   |  strong         |  bounded      |  univariate       |  (bounded)       | no                     |
+|  5.a. [(link)](http://mdbrown.github.io/5A-StrongContinuousUnivariateMarker_controlProp.html) |  strong       |  continuous   |  univariate       |  none   | **yes**                    |
+|  5.b. [(link)](http://mdbrown.github.io/5B-StrongDiscretizedUnivariateMarker_controlProp.html)|  strong       |  discrete     |  univariate       |  none   | **yes**                    |
+|  6.a  [(link)](http://mdbrown.github.io/6A-StrongContinuousBivariateMarker_DiscreteRisk.html) |  strong       |  continuous   |  bivariate        |  **discrete + noise**    | no                    |
+|  6.b  [(link)](http://mdbrown.github.io/6B-StrongContinuousBivariateMarker_DiscreteRisk.html) |  strong       |  continuous  |  bivariate        |  **discrete**    | no                    |
+
+
+  
+  
+  
+  
+                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
