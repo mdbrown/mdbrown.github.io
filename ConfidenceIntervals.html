@@ -122,12 +122,20 @@ for( b in 1:B) {
   
   #coefficients from the bootstrap, and evaluated with the bootstrap data
   theta_boot &lt;- T(x.boot, coefs = eta.boot)
-  theta_boot_bc[b] &lt;- mean(theta_star_boot) - theta_boot
+  
+  #double bootstrap estimate of bias
+  theta_boot_bias  &lt;- mean(theta_star_boot) - theta_boot
+  
+  #bootstrap distribution of bias-corrected estimates of theta
+  theta_boot_bc[b] &lt;- theta_boot - theta_boot_bias 
   
 }  ##end bootstrap
 
-#bootstrap bias corrected estimate
-theta_bc &lt;- mean(theta_star) - theta_hat
+#bootstrap estimate of bias
+theta_bias &lt;- mean(theta_star) - theta_hat
+
+#bootstrap bias-corrected estimate of theta
+theta_bc &lt;- theta_hat - theta_bias
 
 #confidence intervals are quantiles of theta_boot_bc
 ci &lt;- quantile(theta_boot_bc, probs = c(alpha/2, 1-alpha/2))</code></pre>
