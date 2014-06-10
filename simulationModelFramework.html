@@ -11,7 +11,7 @@
 
 <meta name="author" content="marshall brown" />
 
-<meta name="date" content="2014-05-01" />
+<meta name="date" content="2014-05-12" />
 
 <title>simulation model framework</title>
 
@@ -42,73 +42,79 @@
 <div id="header">
 <h1 class="title">simulation model framework</h1>
 <h4 class="author"><em>marshall brown</em></h4>
-<h4 class="date"><em>05/01/2014</em></h4>
+<h4 class="date"><em>05/12/2014</em></h4>
 </div>
 
 
-<p>Things we can fix throughout all models:</p>
-<ol style="list-style-type: decimal">
-<li>disease prevalence = 15%</li>
-<li>high risk threshold = 19%</li>
-</ol>
-<hr />
-<p>We have several choices to make:</p>
-<div id="marker-strength" class="section level4">
-<h4>marker strength:</h4>
-<ul>
-<li><strong>weak:</strong> <em>model coefficients set such that AUC = .55 for an unbounded, continuous marker.</em></li>
-<li><p><strong>strong:</strong> <em>model coefficients set such that AUC = .55 for an unbounded, continuous marker.</em></p>
-<p><em>Note: The true value of the AUC may change slightly for discrete or bounded versions of the marker</em></p></li>
-</ul>
-</div>
-<div id="marker-measurement" class="section level4">
-<h4>marker measurement:</h4>
-<ul>
-<li><strong>continuous</strong></li>
-<li><strong>discretized:</strong> <em>rounded to nearest tenth</em></li>
-<li><strong>bounded:</strong> <em>top 10% marker values truncated</em></li>
-</ul>
-</div>
-<div id="dimension" class="section level4">
-<h4>dimension</h4>
-<ul>
-<li><strong>univariate</strong></li>
-<li><strong>bivariate</strong></li>
-<li><strong>multivariate:</strong> <span class="math">\(p = 4\)</span></li>
-</ul>
-</div>
-<div id="contraints-on-risk-distribution" class="section level4">
-<h4>contraints on risk distribution:</h4>
-<ul>
-<li><strong>none:</strong> <em>risk distribution is induced from marker measurement</em></li>
-<li><strong>discrete:</strong> <em>marker measurement remains continuous, but risk for each individual is contrained to be one of four discrete values. This is achieved through use of a bivariate marker, where <span class="math">\(x_1\)</span> is standard normal and <span class="math">\(x_2\)</span> is a function of <span class="math">\(x_1\)</span>. Mathematically:</em> <span class="math">\[
-   \begin{aligned}
-    r^* &amp; \in \{r_1, r_2, r_3, ...\} \\
-    x_1 &amp; \sim N(0, 1) \\
-    x_2 &amp; = (logit(r^*) - \beta_0 - \beta_1 x )/ \beta_2 \\
-    \end{aligned}
-\]</span><br /></li>
-<li><strong>discrete + noise:</strong> <em>identical to the discrete case, but instead of <span class="math">\(x_2\)</span> being determined by <span class="math">\(x_1\)</span> such that risk is one of four discrete values, <span class="math">\(x_2\)</span> is generated from a normal distribution centered at the value such that risk is discrete. Mathematically:</em> <span class="math">\[
-   \begin{aligned}
-    r^* &amp; \in \{r_1, r_2, r_3, ...\} \\
-    x_1 &amp; \sim N(0, 1) \\
-    x_2 &amp; \sim N((logit(r^*) - \beta_0 - \beta_1 x )/ \beta_2, sd = risk.tune) \\
-    \end{aligned}
-\]</span></li>
-</ul>
-</div>
-<div id="control-proportion-of-observations-with-risk-near-boundary" class="section level4">
-<h4>control proportion of observations with risk near ‘boundary’:</h4>
-<p>this proportion will be controlled by simulating marker values from a mixture of normals. One of which will be centered at the high risk threshold.</p>
-<ul>
-<li><strong>yes:</strong> <em>mixture of normals</em></li>
-<li><strong>no:</strong> <em>not adjusted by mixture distribution</em></li>
-</ul>
-<hr />
-<p></p>
-</div>
-<div id="scenarios-we-should-consider" class="section level3">
-<h3>Scenarios we should consider</h3>
+<div id="model" class="section level2">
+<h2>Model</h2>
+<p>The main simulation model <span class="math">\[
+\begin{aligned}
+  X_D &amp; \sim N(\mu_D, \sigma^2) \\
+  X_{\bar D} \sim N(0, \sigma^2) \\
+\end{aligned}
+\]</span></p>
+<p>which induces a linear logistic model for <span class="math">\(Risk(X) = Pr(D=1 | X) = expit(\beta X)\)</span>.</p>
+<table>
+<col width="100%"></col>
+<tbody>
+<tr class="odd">
+<td align="left">## Model attributes Fixed throughout all models:</td>
+</tr>
+<tr class="even">
+<td align="left">1. disease prevalence = 15% 2. high risk threshold = 19%</td>
+</tr>
+<tr class="odd">
+<td align="left">We have several choices to make:</td>
+</tr>
+<tr class="even">
+<td align="left">#### marker strength:</td>
+</tr>
+<tr class="odd">
+<td align="left">- <strong>weak:</strong> <em>model coefficients set such that AUC = .55 for an unbounded, continuous marker.</em> - <strong>strong:</strong> <em>model coefficients set such that AUC = .75 for an unbounded, continuous marker.</em></td>
+</tr>
+<tr class="even">
+<td align="left"><em>Note: The true value of the AUC may change slightly for discrete or bounded versions of the marker</em></td>
+</tr>
+<tr class="odd">
+<td align="left">#### marker measurement:</td>
+</tr>
+<tr class="even">
+<td align="left">- <strong>continuous</strong> - <strong>discretized:</strong> <em>rounded to nearest tenth</em> - <strong>bounded:</strong> <em>top 10% marker values truncated</em></td>
+</tr>
+<tr class="odd">
+<td align="left">#### dimension</td>
+</tr>
+<tr class="even">
+<td align="left">- <strong>univariate</strong> - <strong>bivariate</strong> - <strong>multivariate:</strong> <span class="math">\(p = 4\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">#### contraints on risk distribution: - <strong>none:</strong> <em>risk distribution is induced from marker measurement</em> - <strong>discrete:</strong> <em>marker measurement remains continuous, but risk for each individual is contrained to be one of four discrete values. This is achieved through use of a bivariate marker, where <span class="math">\(x_1\)</span> is standard normal and <span class="math">\(x_2\)</span> is a function of <span class="math">\(x_1\)</span>. Mathematically:</em> <span class="math">\[
+\begin{aligned}
+r^* &amp; \in \{r_1, r_2, r_3, ...\} \\
+x_1 &amp; \sim N(0, 1) \\
+x_2 &amp; = (logit(r^*) - \beta_0 - \beta_1 x )/ \beta_2 \\
+\end{aligned}
+\]</span> - <strong>discrete + noise:</strong> <em>identical to the discrete case, but instead of <span class="math">\(x_2\)</span> being determined by <span class="math">\(x_1\)</span> such that risk is one of four discrete values, <span class="math">\(x_2\)</span> is generated from a normal distribution centered at the value such that risk is discrete. Mathematically:</em> <span class="math">\[
+\begin{aligned}
+r^* &amp; \in \{r_1, r_2, r_3, ...\} \\
+x_1 &amp; \sim N(0, 1) \\
+x_2 &amp; \sim N((logit(r^*) - \beta_0 - \beta_1 x )/ \beta_2, sd = risk.tune) \\
+\end{aligned}
+\]</span></td>
+</tr>
+<tr class="even">
+<td align="left">#### control proportion of observations with risk near ‘boundary’:</td>
+</tr>
+<tr class="odd">
+<td align="left">this proportion will be controlled by simulating marker values from a mixture of normals. One of which will be centered at the high risk threshold.</td>
+</tr>
+<tr class="even">
+<td align="left">- <strong>yes:</strong> <em>mixture of normals</em> - <strong>no:</strong> <em>not adjusted by mixture distribution</em></td>
+</tr>
+</tbody>
+</table>
+<p>###Scenarios we should consider</p>
 <table>
 <thead>
 <tr class="header">
@@ -122,7 +128,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">1.a <a href="http://mdbrown.github.io/WeakContinuousUnivariateMarker.html">(link)</a></td>
+<td align="left">1.a <a href="http://mdbrown.github.io/1A-WeakContinuousUnivariateMarker.html">(link)</a></td>
 <td align="right">weak</td>
 <td align="right">continuous</td>
 <td align="right">univariate</td>
@@ -130,7 +136,7 @@
 <td align="right">no</td>
 </tr>
 <tr class="even">
-<td align="left">1.b <a href="http://mdbrown.github.io/StrongContinuousUnivariateMarker.html">(link)</a></td>
+<td align="left">1.b <a href="http://mdbrown.github.io/1B-StrongContinuousUnivariateMarker.html">(link)</a></td>
 <td align="right">strong</td>
 <td align="right">continuous</td>
 <td align="right">univariate</td>
@@ -138,7 +144,7 @@
 <td align="right">no</td>
 </tr>
 <tr class="odd">
-<td align="left">2. <a href="http://mdbrown.github.io/WeakContinuousMultivariateMarker.html">(link)</a></td>
+<td align="left">2.a. <a href="http://mdbrown.github.io/2A-WeakContinuousMultivariateMarker.html">(link)</a></td>
 <td align="right">weak</td>
 <td align="right">continuous</td>
 <td align="right">multivariate</td>
@@ -146,63 +152,71 @@
 <td align="right">no</td>
 </tr>
 <tr class="even">
-<td align="left">3.a. <a href="http://mdbrown.github.io/StrongContinuousUnivariateMarker_controlProp.html">(link)</a></td>
+<td align="left">2.b. <a href="http://mdbrown.github.io/2B-StrongContinuousMultivariateMarker.html">(link)</a></td>
+<td align="right">strong</td>
+<td align="right">continuous</td>
+<td align="right">multivariate</td>
+<td align="right">none</td>
+<td align="right">no</td>
+</tr>
+<tr class="odd">
+<td align="left">3.a <a href="http://mdbrown.github.io/3A-WeakDiscretizedUnivariateMarker.html">(link)</a></td>
+<td align="right">weak</td>
+<td align="right">discrete</td>
+<td align="right">univariate</td>
+<td align="right">none</td>
+<td align="right">no</td>
+</tr>
+<tr class="even">
+<td align="left">3.b <a href="http://mdbrown.github.io/3B-StrongDiscretizedUnivariateMarker.html">(link)</a></td>
+<td align="right">strong</td>
+<td align="right">discrete</td>
+<td align="right">univariate</td>
+<td align="right">none</td>
+<td align="right">no</td>
+</tr>
+<tr class="odd">
+<td align="left">4.a <a href="http://mdbrown.github.io/4A-WeakBoundedUnivariateMarker.html">(link)</a></td>
+<td align="right">weak</td>
+<td align="right">bounded</td>
+<td align="right">univariate</td>
+<td align="right">none</td>
+<td align="right">no</td>
+</tr>
+<tr class="even">
+<td align="left">4.b <a href="http://mdbrown.github.io/4B-StrongBoundedUnivariateMarker.html">(link)</a></td>
+<td align="right">strong</td>
+<td align="right">bounded</td>
+<td align="right">univariate</td>
+<td align="right">none</td>
+<td align="right">no</td>
+</tr>
+<tr class="odd">
+<td align="left">5.a. <a href="http://mdbrown.github.io/5A-StrongContinuousUnivariateMarker_controlProp.html">(link)</a></td>
 <td align="right">strong</td>
 <td align="right">continuous</td>
 <td align="right">univariate</td>
 <td align="right">none</td>
 <td align="right"><strong>yes</strong></td>
 </tr>
-<tr class="odd">
-<td align="left">3.b. <a href="http://mdbrown.github.io/StrongDiscretizedUnivariateMarker_controlProp.html">(link)</a></td>
+<tr class="even">
+<td align="left">5.b. <a href="http://mdbrown.github.io/5B-StrongDiscretizedUnivariateMarker_controlProp.html">(link)</a></td>
 <td align="right">strong</td>
 <td align="right">discrete</td>
 <td align="right">univariate</td>
 <td align="right">none</td>
 <td align="right"><strong>yes</strong></td>
 </tr>
-<tr class="even">
-<td align="left">4.a <a href="http://mdbrown.github.io/StrongDiscretizedUnivariateMarker.html">(link)</a></td>
-<td align="right">strong</td>
-<td align="right">discrete</td>
-<td align="right">univariate</td>
-<td align="right">none</td>
-<td align="right">no</td>
-</tr>
 <tr class="odd">
-<td align="left">4.b <a href="http://mdbrown.github.io/WeakDiscretizedUnivariateMarker.html">(link)</a></td>
-<td align="right">weak</td>
-<td align="right">discrete</td>
-<td align="right">univariate</td>
-<td align="right">(discretized)</td>
-<td align="right">no</td>
-</tr>
-<tr class="even">
-<td align="left">5.a <a href="http://mdbrown.github.io/StrongBoundedUnivariateMarker.html">(link)</a></td>
-<td align="right">strong</td>
-<td align="right">bounded</td>
-<td align="right">univariate</td>
-<td align="right">(bounded)</td>
-<td align="right">no</td>
-</tr>
-<tr class="odd">
-<td align="left">5.b <a href="http://mdbrown.github.io/WeakBoundedUnivariateMarker.html">(link)</a></td>
-<td align="right">weak</td>
-<td align="right">bounded</td>
-<td align="right">univariate</td>
-<td align="right">(bounded)</td>
-<td align="right">no</td>
-</tr>
-<tr class="even">
-<td align="left">6.a <a href="http://mdbrown.github.io/StrongContinuousBivariateMarker_DiscreteRisk.html">(link)</a></td>
+<td align="left">6.a <a href="http://mdbrown.github.io/6A-StrongContinuousBivariateMarker_DiscreteRisk.html">(link)</a></td>
 <td align="right">strong</td>
 <td align="right">continuous</td>
 <td align="right">bivariate</td>
 <td align="right"><strong>discrete + noise</strong></td>
 <td align="right">no</td>
 </tr>
-<tr class="odd">
-<td align="left">6.b <a href="http://mdbrown.github.io/StrongContinuousBivariateMarker_DiscreteRisk_2.html">(link)</a></td>
+<tr class="even">
+<td align="left">6.b <a href="http://mdbrown.github.io/6B-StrongContinuousBivariateMarker_DiscreteRisk.html">(link)</a></td>
 <td align="right">strong</td>
 <td align="right">continuous</td>
 <td align="right">bivariate</td>
