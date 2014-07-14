@@ -9,9 +9,7 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="marshall brown" />
 
-<meta name="date" content="2014-05-20" />
 
 <title>Confidence Interval Calculations</title>
 
@@ -55,15 +53,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="header">
 <h1 class="title">Confidence Interval Calculations</h1>
-<h4 class="author"><em>marshall brown</em></h4>
-<h4 class="date"><em>05/20/2014</em></h4>
 </div>
 
 
 <p>Documentation for the procedures used to calculate risk measure <span class="math">\((1-\alpha)*100\%\)</span> confidence intervals.</p>
 <div id="standard-intervals" class="section level3">
 <h3>Standard intervals</h3>
-<p>We sample <span class="math">\(B\)</span> bootstrap replications to obtain <span class="math">\(\hat{\theta}_b\)</span> for <span class="math">\(b = 1, 2, ..., B\)</span>. Where <span class="math">\(\hat{\theta}_b\)</span> is calculated by refitting the model using the <span class="math">\(x_{(b)}\)</span> and using <span class="math">\(x_{(b)}\)</span> to estimate the measure.</p>
+<p>We sample <span class="math">\(B\)</span> bootstrap replications to obtain bootstrap data <span class="math">\(x_{(b)}\)</span> for <span class="math">\(b = 1, 2, ..., B\)</span>. The estimate of performance for bootstrap sample <span class="math">\(b\)</span>, <span class="math">\(\theta_{(b)}\)</span>, is calculated by refitting the model and estimating <span class="math">\(\theta_{(b)}\)</span> using <span class="math">\(x_{(b)}\)</span>.</p>
+<p>For the normal-theory and quantile intervals, the same interval calculation is used for both conditional and unconditional performance measures. The only difference is when we calculate coverage, we compare the interval to the performance of the true model (for unconditional performance) or to the performance of the fitted risk model (for conditional performance).</p>
 <div id="normal-theory" class="section level4">
 <h4>Normal theory</h4>
 <p>Confidence interval calculated using normal quantiles and the bootstrap estimate of standard error:</p>
@@ -90,14 +87,14 @@ H = \sqrt{n} (\widehat{\theta} - \theta)
 <p>Say using <span class="math">\[
 H^{(b)} = \sqrt{n} (\widehat{\theta}^{(b)} - \widehat{\theta})
 \]</span></p>
-<p>Let <span class="math">\(u^{b}\)</span> be <span class="math">\(1-\alpha/2\)</span> percentile of <span class="math">\(H^{(b)}\)</span> and <span class="math">\(l^{b}\)</span> be the <span class="math">\(\alpha/2\)</span> percentile of <span class="math">\(H^{b}\)</span> then we hope:</p>
-<p><span class="math">\(P(l^{b} \le  H \le u^{b})  \approx 1-\alpha\)</span></p>
+<p>Let <span class="math">\(u^{(b)}\)</span> be <span class="math">\(1-\alpha/2\)</span> percentile of <span class="math">\(H^{(b)}\)</span> and <span class="math">\(l^{b}\)</span> be the <span class="math">\(\alpha/2\)</span> percentile of <span class="math">\(H^{(b)}\)</span> then we hope:</p>
+<p><span class="math">\(P(l^{(b)} \le  H \le u^{(b)})  \approx 1-\alpha\)</span></p>
 <p>which, if we solve for <span class="math">\(\theta\)</span> gives:</p>
 <p><span class="math">\[
-P(\widehat{\theta} - u^{b}/\sqrt{n} \le \theta \le \widehat{\theta}-l^{b}/\sqrt{n})
+P(\widehat{\theta} - u^{(b)}/\sqrt{n} \le \theta \le \widehat{\theta}-l^{(b)}/\sqrt{n})
 \]</span></p>
-<p>But <span class="math">\(\widehat{\theta} - u^{b}/\sqrt{n} = 2\widehat{\theta} - \tilde{u}^{b}/\sqrt{n}\)</span></p>
-<p>where <span class="math">\(\tilde{u}^{(b)}\)</span> is the <span class="math">\(1-\alpha/2\)</span> percentile of <span class="math">\(\hat{\theta}^b\)</span>.</p>
+<p>But <span class="math">\(\widehat{\theta} - u^{(b)}/\sqrt{n} = 2\widehat{\theta} - \tilde{u}^{(b)}/\sqrt{n}\)</span></p>
+<p>where <span class="math">\(\tilde{u}^{(b)}\)</span> is the <span class="math">\(1-\alpha/2\)</span> percentile of <span class="math">\(\hat{\theta}^{(b)}\)</span> and <span class="math">\(\tilde{l}^{(b)}\)</span> is the <span class="math">\(\alpha/2\)</span> percentile of <span class="math">\(\hat{\theta}^{(b)}\)</span>.</p>
 </div>
 <div id="true-bias-corrected-quantile-bootstrap" class="section level4">
 <h4>True bias-corrected quantile bootstrap</h4>

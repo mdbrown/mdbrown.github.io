@@ -9,9 +9,7 @@
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="marshall brown" />
 
-<meta name="date" content="2014-05-12" />
 
 <title>simulation model framework</title>
 
@@ -55,11 +53,39 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="header">
 <h1 class="title">simulation model framework</h1>
-<h4 class="author"><em>marshall brown</em></h4>
-<h4 class="date"><em>05/12/2014</em></h4>
+<h4 class="date"><em>7/14/2014</em></h4>
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#background">Background</a><ul>
+<li><a href="#measure-definitions">Measure Definitions</a></li>
+<li><a href="#target-performance-measures">Target Performance Measures</a></li>
+<li><a href="#confidence-interval-calculations">Confidence Interval Calculations</a></li>
+</ul></li>
+<li><a href="#model">Model</a><ul>
+<li><a href="#model-attributes">Model attributes</a></li>
+<li><a href="#scenarios-we-consider">Scenarios we consider</a></li>
+</ul></li>
+</ul>
+</div>
 
+<div id="background" class="section level2">
+<h2>Background</h2>
+<div id="measure-definitions" class="section level3">
+<h3>Measure Definitions</h3>
+<p>See <a href="http://mdbrown.github.io/measureDefs.html">here</a> for risk model performance measure definitions.</p>
+</div>
+<div id="target-performance-measures" class="section level3">
+<h3>Target Performance Measures</h3>
+<p>We consider estimation of the performance of the true risk model, termed “unconditional performance”, and performance of the risk model fitted to the data, termed “conditional performance”.</p>
+</div>
+<div id="confidence-interval-calculations" class="section level3">
+<h3>Confidence Interval Calculations</h3>
+<p>See <a href="http://mdbrown.github.io/ConfidenceIntervals.html">here</a> for details regarding confidence interval calculations.</p>
+<hr />
+</div>
+</div>
 <div id="model" class="section level2">
 <h2>Model</h2>
 <p>The main simulation model <span class="math">\[
@@ -70,9 +96,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 \]</span></p>
 <p>which induces a linear logistic model for <span class="math">\(Risk(X) = Pr(D=1 | X) = expit(\beta X)\)</span>.</p>
 <hr />
-</div>
-<div id="model-attributes" class="section level2">
-<h2>Model attributes</h2>
+<div id="model-attributes" class="section level3">
+<h3>Model attributes</h3>
 <p>Fixed throughout all models:</p>
 <ol style="list-style-type: decimal">
 <li>disease prevalence = 15%</li>
@@ -132,8 +157,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 <hr />
 </div>
-<div id="scenarios-we-should-consider" class="section level3">
-<h3>Scenarios we should consider</h3>
+</div>
+<div id="scenarios-we-consider" class="section level3">
+<h3>Scenarios we consider</h3>
 <table>
 <thead>
 <tr class="header">
@@ -249,14 +275,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>See <a href="http://mdbrown.github.io/GlobalSimulationSummary.html">here</a> for two plots that show all simulation scenarios together.</p>
 <hr />
 </div>
-</div>
-<div id="measure-definitions" class="section level3">
-<h3>Measure Definitions</h3>
-<p>See <a href="http://mdbrown.github.io/measureDefs.html">here</a> for risk model performance measure definitions.</p>
-</div>
-<div id="confidence-interval-calculations" class="section level3">
-<h3>Confidence Interval Calculations</h3>
-<p>See <a href="http://mdbrown.github.io/ConfidenceIntervals.html">here</a> for details regarding confidence interval calculations.</p>
 </div>
 </div>
 
