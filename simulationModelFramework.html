@@ -58,6 +58,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
+<li><a href="#updates-as-of-73014"><em>Updates as of 7/30/14</em></a></li>
 <li><a href="#background">Background</a><ul>
 <li><a href="#measure-definitions">Measure Definitions</a></li>
 <li><a href="#target-performance-measures">Target Performance Measures</a></li>
@@ -70,6 +71,20 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
+<div id="updates-as-of-73014" class="section level2">
+<h2><em>Updates as of 7/30/14</em></h2>
+<ul>
+<li>changed discrete marker from being rounded at nearest tenth to nearest integer value. This makes the marker much more discrete</li>
+<li>added cases 5c/d where instead of centering a portion of observations to have risk centered at the high risk threshold, I center a portion of the population to have high risk slightly above or below the high risk threshold. We did this because we thought that maybe centering a portion of observations at the high risk threshold was balancing our errors out too much, causing us not to have the coverage problems we expect.</li>
+<li>for a few cases (1A/B, 5A, B, C, D) I added in a new way of calculating confidence intervals for estimates of conditional performance. I call this <em>Holly’s ci method</em> and it is calculated as such:
+<ol style="list-style-type: decimal">
+<li>estimate the logistic model coefficients <span class="math">\(\hat{\beta}\)</span> in the original data <span class="math">\(X\)</span>.</li>
+<li>bootstrap <span class="math">\(X\)</span> and fit the risk using the <span class="math">\(\hat{\beta}\)</span> on <span class="math">\(X_{(b)}\)</span> to calculate <span class="math">\(\hat{\theta^{bc}_{(b)}}\)</span></li>
+<li>take quantiles of <span class="math">\(\hat{\theta^{bc}_{(b)}}\)</span> to get the ci</li>
+</ol></li>
+<li>added tables and plots of median %bias and absolute bias for each simulation scenario.</li>
+</ul>
+</div>
 <div id="background" class="section level2">
 <h2>Background</h2>
 <div id="measure-definitions" class="section level3">
@@ -116,7 +131,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h4>marker measurement:</h4>
 <ul>
 <li><strong>continuous</strong></li>
-<li><strong>discretized:</strong> <em>rounded to nearest tenth</em></li>
+<li><strong>discretized:</strong> <em>rounded to nearest integer</em></li>
 <li><strong>bounded:</strong> <em>top 10% marker values truncated</em></li>
 </ul>
 </div>
@@ -150,12 +165,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="control-proportion-of-observations-with-risk-near-boundary" class="section level4">
 <h4>control proportion of observations with risk near ‘boundary’:</h4>
-<p>this proportion will be controlled by simulating marker values from a mixture of normals. One of which will be centered at the high risk threshold.</p>
+<p>this proportion will be controlled by simulating marker values from a mixture of normals. One of which will be centered at the high risk threshold of 19%. I have added two other simulations where a portion of the population (15%) is centered just above (shifted up) with mean risk at 21% or below (shifted down, mean risk at 17%) the high risk threshold.</p>
 <ul>
 <li><strong>yes:</strong> <em>mixture of normals</em></li>
 <li><strong>no:</strong> <em>not adjusted by mixture distribution</em></li>
+<li><strong>yes: shifted up</strong> *</li>
+<li><strong>yes: shifted down</strong></li>
 </ul>
 <hr />
+<p>=======</p>
 </div>
 </div>
 <div id="scenarios-we-consider" class="section level3">
@@ -251,6 +269,22 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <td align="right">univariate</td>
 <td align="right">none</td>
 <td align="right"><strong>yes</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">5.c. <a href="http://mdbrown.github.io/5C-StrongContinuousUnivariateMarker_controlProp.html">(link)</a></td>
+<td align="right">strong</td>
+<td align="right">continuous</td>
+<td align="right">univariate</td>
+<td align="right">none</td>
+<td align="right"><strong>yes shifted up</strong></td>
+</tr>
+<tr class="even">
+<td align="left">5.d. <a href="http://mdbrown.github.io/5D-StrongContinuousUnivariateMarker_controlProp.html">(link)</a></td>
+<td align="right">strong</td>
+<td align="right">continuous</td>
+<td align="right">univariate</td>
+<td align="right">none</td>
+<td align="right"><strong>yes shifted down</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">6.a <a href="http://mdbrown.github.io/6A-StrongContinuousBivariateMarker_DiscreteRisk.html">(link)</a></td>
