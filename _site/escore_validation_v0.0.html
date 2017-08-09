@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="date" content="2017-08-08" />
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    PLCO
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="PLCO_demographics_v0.0.html">Demographics</a>
+    </li>
+    <li>
+      <a href="PLCO_outcome_v0.0.html">CRC outcome</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    E-score
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="escore_about_v0.0.html">About</a>
+    </li>
+    <li>
+      <a href="escore_calibration_v0.0.html">Calibration</a>
+    </li>
+    <li>
+      <a href="escore_validation_v0.0.html">Validation</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="gscore_v0.0.html">G-score</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="e-model-discrimination" class="section level3">
+<h3>E model discrimination:</h3>
+<p>We assess model discrimination by estimating t-year (<em>cumulative/dynamic</em>) ROC curves, which display true positive and false positive rates across a range of threshold values used to classify an observation as ‘high-risk’. Area under the ROC curves (AUC) are also estimated.</p>
+<p>We show ROC curves for 2-year, 5-year and 10-year prediction times. First we estimate ROC/AUC for the entire cohort, and then we stratify on categorized age groups.</p>
+<p>Estimation methods employ a nearest neighbor approach that accounts for competing risks. More details can be found in the manuscript referenced below.</p>
+<p><img src="escore_validation_v0.0_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
+<p><em>Table of AUC estimates:</em></p>
+<table style="width:47%;">
+<colgroup>
+<col width="9%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Sex</th>
+<th align="center">2 year</th>
+<th align="center">5 year</th>
+<th align="center">10 year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Female</td>
+<td align="center">0.612</td>
+<td align="center">0.621</td>
+<td align="center">0.615</td>
+</tr>
+<tr class="even">
+<td align="center">Male</td>
+<td align="center">0.628</td>
+<td align="center">0.628</td>
+<td align="center">0.626</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="age-stratified-roc" class="section level3 tabset tabset-fade tabset-pills">
+<h3>Age stratified ROC</h3>
+<div id="males" class="section level4">
+<h4>Males</h4>
+<p><img src="escore_validation_v0.0_files/figure-html/unnamed-chunk-4-1.png" width="480" /></p>
+<p><em>Table of AUC estimates:</em></p>
+<table style="width:46%;">
+<colgroup>
+<col width="8%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Age</th>
+<th align="center">2 year</th>
+<th align="center">5 year</th>
+<th align="center">10 year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">&lt;= 60</td>
+<td align="center">0.578</td>
+<td align="center">0.602</td>
+<td align="center">0.622</td>
+</tr>
+<tr class="even">
+<td align="center">60-65</td>
+<td align="center">0.603</td>
+<td align="center">0.614</td>
+<td align="center">0.596</td>
+</tr>
+<tr class="odd">
+<td align="center">65-70</td>
+<td align="center">0.592</td>
+<td align="center">0.608</td>
+<td align="center">0.594</td>
+</tr>
+<tr class="even">
+<td align="center">70+</td>
+<td align="center">0.567</td>
+<td align="center">0.547</td>
+<td align="center">0.553</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="females" class="section level4">
+<h4>Females</h4>
+<p><img src="escore_validation_v0.0_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
+<p><em>Table of AUC estimates:</em></p>
+<table style="width:46%;">
+<colgroup>
+<col width="8%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Age</th>
+<th align="center">2 year</th>
+<th align="center">5 year</th>
+<th align="center">10 year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">&lt;= 60</td>
+<td align="center">0.585</td>
+<td align="center">0.65</td>
+<td align="center">0.618</td>
+</tr>
+<tr class="even">
+<td align="center">60-65</td>
+<td align="center">0.585</td>
+<td align="center">0.627</td>
+<td align="center">0.612</td>
+</tr>
+<tr class="odd">
+<td align="center">65-70</td>
+<td align="center">0.61</td>
+<td align="center">0.555</td>
+<td align="center">0.556</td>
+</tr>
+<tr class="even">
+<td align="center">70+</td>
+<td align="center">0.557</td>
+<td align="center">0.581</td>
+<td align="center">0.577</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Saha, P. and Heagerty, P. J. (2010). Time-Dependent Predictive Accuracy in the Presence of Competing Risks. Biometrics 66, 999-1011.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
